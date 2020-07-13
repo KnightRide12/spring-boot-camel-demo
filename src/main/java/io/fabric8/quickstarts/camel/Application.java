@@ -42,7 +42,7 @@ public class Application extends RouteBuilder {
 
 			@Override
 			public void process(Exchange exc) throws Exception {
-				log.info(exc.getIn().getBody().toString());
+				log.info(exc.getIn().getBody(String.class));
 			}
         	  
           });
