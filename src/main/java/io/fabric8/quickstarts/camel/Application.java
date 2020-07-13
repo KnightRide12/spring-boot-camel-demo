@@ -36,7 +36,8 @@ public class Application extends RouteBuilder {
     public void configure() throws Exception {
     	from("timer://foo?period=5000")
           .setBody().constant("Hello World")
-          .to("netty:tcp://172.30.34.159:3100?sync=false");
+        //  .to("netty:tcp://172.30.34.159:3100?sync=false");
+    	  .to("netty:tcp://inbound-demo.app-crc.testing:80?sync=false");
         //    .log(">>> ${body}");
     }
 }
