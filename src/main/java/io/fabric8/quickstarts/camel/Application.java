@@ -18,7 +18,6 @@ package io.fabric8.quickstarts.camel;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ImportResource;
@@ -42,7 +41,7 @@ public class Application extends RouteBuilder {
 
 			@Override
 			public void process(Exchange exc) throws Exception {
-				log.info(exc.getIn().getBody().toString());
+				log.info(exc.getIn().getBody(String.class));
 			}
         	  
           });
