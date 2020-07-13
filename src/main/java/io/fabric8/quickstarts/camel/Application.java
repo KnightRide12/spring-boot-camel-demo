@@ -15,8 +15,6 @@
  */
 package io.fabric8.quickstarts.camel;
 
-import org.apache.camel.Exchange;
-import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -36,17 +34,9 @@ public class Application extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        from("netty:tcp://0.0.0.0:3100?sync=true")
-          .process(new Processor() {
-
-			@Override
-			public void process(Exchange exc) throws Exception {
-				log.info(exc.getIn().getBody(String.class));
-			}
-        	  
-          });
-    	//from("timer://foo?period=5000")
-        //    .setBody().constant("Hello World")
+    	from("timer://foo?period=5000")
+          .setBody().constant("Hello World")
+          .to("netty:tcp://172.30.34.159:3100?sync=false");
         //    .log(">>> ${body}");
     }
 }
