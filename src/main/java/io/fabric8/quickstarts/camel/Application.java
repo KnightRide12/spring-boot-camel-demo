@@ -37,8 +37,8 @@ public class Application extends RouteBuilder {
     	from("timer://foo?period=5000")
           .setBody().constant("Hello World")
         //  .to("netty:tcp://172.30.34.159:3100?sync=false");
-	      .log("Sending to route inbound-demo.app-crc.testing on port 80 using netty http")
-    	  .to("netty-http:http://inbound-demo.app-crc.testing:80?sync=false");
+	      .log("Sending to route inbound-route-openshift.apps-crc.testing on port 80 using netty http")
+    	  .to("netty-http:http://inbound-route-openshift.apps-crc.testing:80?sync=false");
         //    .log(">>> ${body}");
     }
 }
