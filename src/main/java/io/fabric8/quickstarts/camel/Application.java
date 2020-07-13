@@ -36,9 +36,9 @@ public class Application extends RouteBuilder {
     public void configure() throws Exception {
     	from("timer://foo?period=5000")
           .setBody().constant("Hello World")
-        //  .to("netty:tcp://172.30.34.159:3100?sync=false");
-	      .log("Sending to route inbound-route-openshift.apps-crc.testing on port 80 using netty tcp")
-	      .to("netty:tcp://inbound-route-openshift.apps-crc.testing:80?sync=false");
+          .to("netty:tcp://172.30.34.159:3100?sync=false")
+	      .log("Sent to internal service using netty tcp");
+	    //  .to("netty:tcp://inbound-route-openshift.apps-crc.testing:80?sync=false");
     	//  .to("netty-http:http://inbound-route-openshift.apps-crc.testing:80?sync=false");
         //    .log(">>> ${body}");
     }
