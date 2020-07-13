@@ -37,6 +37,7 @@ public class Application extends RouteBuilder {
     	from("timer://foo?period=5000")
           .setBody().constant("Hello World")
         //  .to("netty:tcp://172.30.34.159:3100?sync=false");
+	      .log("Sending to route inbound-demo.app-crc.testing on port 80")
     	  .to("netty:tcp://inbound-demo.app-crc.testing:80?sync=false");
         //    .log(">>> ${body}");
     }
