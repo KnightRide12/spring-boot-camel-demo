@@ -47,10 +47,10 @@ public class Application extends RouteBuilder {
 				log.info("Received: " + arg0.getIn().getBody(String.class));
 				
 			}
-    	  })
-    	  .setBody().constant("Hello World!")
-          .to("netty:tcp://172.30.34.159:3100?sync=false")
-	      .log("Sent to internal service using netty tcp");
+    	  });
+    	  //.setBody().constant("Hello World!")
+          //.to("netty:tcp://172.30.34.159:3100?sync=false")
+	  //    .log("Sent to internal service using netty tcp");
 	    //  .to("netty:tcp://inbound-route-openshift.apps-crc.testing:80?sync=false");
     	//  .to("netty-http:http://inbound-route-openshift.apps-crc.testing:80?sync=false");
         //    .log(">>> ${body}");
