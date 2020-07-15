@@ -37,7 +37,7 @@ public class Application extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-    	from("netty-http:http://0.0.0.0:3180?sync=false")
+    	from("netty4-http:http://0.0.0.0:3180?sync=false")
     	//from("timer://foo?period=5000")
         //  .setBody().constant("Hello World")
     	  .process(new Processor() {
@@ -48,7 +48,7 @@ public class Application extends RouteBuilder {
 				
 			}
     	  })
-    	  .convertBodyTo(String.class)
+    	  .transform().constant("Hello World!")
           .to("netty:tcp://172.30.34.159:3100?sync=false")
 	      .log("Sent to internal service using netty tcp");
 	    //  .to("netty:tcp://inbound-route-openshift.apps-crc.testing:80?sync=false");
