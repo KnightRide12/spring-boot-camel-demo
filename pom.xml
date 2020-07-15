@@ -83,7 +83,7 @@
         
         <dependency>
           <groupId>org.apache.camel</groupId>
-          <artifactId>camel-netty-http</artifactId>
+          <artifactId>camel-netty4-http</artifactId>
         </dependency>
         
         <!-- Test -->
