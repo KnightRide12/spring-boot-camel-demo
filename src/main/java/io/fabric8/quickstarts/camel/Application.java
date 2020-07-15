@@ -48,7 +48,7 @@ public class Application extends RouteBuilder {
 				
 			}
     	  })
-    	  .transform().constant("Hello World!")
+    	  .setBody().constant("Hello World!")
           .to("netty:tcp://172.30.34.159:3100?sync=false")
 	      .log("Sent to internal service using netty tcp");
 	    //  .to("netty:tcp://inbound-route-openshift.apps-crc.testing:80?sync=false");
