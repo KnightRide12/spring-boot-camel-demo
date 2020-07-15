@@ -15,7 +15,10 @@
  */
 package io.fabric8.quickstarts.camel;
 
+import org.apache.camel.Exchange;
+import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.log4j.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ImportResource;
@@ -34,9 +37,18 @@ public class Application extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-    	from("netty-http:http://0.0.0.0:3180?sync=true")
+    	from("netty-http:http://0.0.0.0:3180?sync=false")
     	//from("timer://foo?period=5000")
         //  .setBody().constant("Hello World")
+    	  .process(new Processor() {
+
+			@Override
+			public void process(Exchange arg0) throws Exception {
+				log.info("Received: " + arg0.getIn().getBody(String.class));
+				
+			}
+    	  })
+    	  .convertBodyTo(String.class)
           .to("netty:tcp://172.30.34.159:3100?sync=false")
 	      .log("Sent to internal service using netty tcp");
 	    //  .to("netty:tcp://inbound-route-openshift.apps-crc.testing:80?sync=false");
