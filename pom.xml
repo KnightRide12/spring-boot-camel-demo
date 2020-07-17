@@ -91,6 +91,15 @@
           <artifactId>camel-gson</artifactId>
         </dependency>
         
+        <dependency>
+          <groupId>org.apache.activemq</groupId>
+          <artifactId>artemis-jms-client</artifactId>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.camel</groupId>
+          <artifactId>camel-jms-starter</artifactId>
+        </dependency>
+        
         <!-- Test -->
         <dependency>
             <groupId>org.arquillian.cube</groupId>
