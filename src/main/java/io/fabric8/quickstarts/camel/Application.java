@@ -15,10 +15,6 @@
  */
 package io.fabric8.quickstarts.camel;
 
-import org.apache.camel.Exchange;
-import org.apache.camel.Processor;
-import org.apache.camel.builder.RouteBuilder;
-import org.apache.log4j.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ImportResource;
@@ -28,29 +24,10 @@ import org.springframework.context.annotation.ImportResource;
  */
 @SpringBootApplication
 @ImportResource({"classpath:spring/camel-context.xml"})
-public class Application extends RouteBuilder {
-
+public class Application {
+	
     // must have a main method spring-boot can run
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
-    }
-
-    @Override
-    public void configure() throws Exception {
-    	from("netty4-http:http://0.0.0.0:3180?sync=false")
-    	//from("timer://foo?period=5000")
-        //  .setBody().constant("Hello World")
-    	  .process(new Processor() {
-
-			@Override
-			public void process(Exchange arg0) throws Exception {
-				log.info("Received: " + arg0.getIn().getBody(String.class));
-			}
-    	  })
-          .to("jms:queue:demoTopic.demoQueue");
-	  //.log("Sent to internal service using netty tcp");
-	    //  .to("netty:tcp://inbound-route-openshift.apps-crc.testing:80?sync=false");
-    	//  .to("netty-http:http://inbound-route-openshift.apps-crc.testing:80?sync=false");
-        //    .log(">>> ${body}");
     }
 }

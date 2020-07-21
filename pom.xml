@@ -99,7 +99,7 @@
           <groupId>org.apache.camel</groupId>
           <artifactId>camel-jms-starter</artifactId>
         </dependency>
-        
+    
         <!-- Test -->
         <dependency>
             <groupId>org.arquillian.cube</groupId>
