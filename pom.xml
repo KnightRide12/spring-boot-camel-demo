@@ -100,6 +100,16 @@
           <artifactId>camel-jms-starter</artifactId>
         </dependency>
         
+        <dependency>
+          <groupId>org.apache.camel</groupId>
+          <artifactId>camel-amqp-starter</artifactId>
+        </dependency>
+
+        <dependency>
+          <groupId>org.apache.activemq</groupId>
+          <artifactId>activemq-jms-pool</artifactId>
+        </dependency>
+    
         <!-- Test -->
         <dependency>
             <groupId>org.arquillian.cube</groupId>
