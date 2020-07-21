@@ -15,4 +15,11 @@
         </route>
     </camelContext>
     -->
+    <bean id="artemisConnectionFactory" class="org.apache.activemq.jms.client.ActiveMQJMSConnectionFactory">
+      <constructor-arg index="0" value="tcp://demo-broker-ss-0.demo-broker-hdls-svc.openshift.svc.cluster.local"/>
+    </bean>
+    
+    <bean id="jms" class="org.apache.camel.component.jms.JmsComponent">
+      <property name="connectionFactory" ref="artemisConnectionFactory"/>
+    </bean>
 </beans>
