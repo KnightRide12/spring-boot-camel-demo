@@ -19,7 +19,18 @@ public class CamelArtemisRouteBuilder extends RouteBuilder {
 			}
     	  })
           .to("jms:queue:demoQueue")
-          .log("Delivered to jms queue");
+          .log("Delivered to jms:queue:demoQueue")
+          .to("jms:topic:demoTopic")
+          .log("Delivered to jms:topic:demoTopic")
+          .to("jms:queue:demoTopic")
+          .log("Delivered to jms:queue:demoTopic")
+          .to("jms:topic:demoQueue")
+          .log("Delivered to jms:topic:demoQueue")
+          .to("jms:topic:demoTopic.demoQueue")
+          .log("Delivered to jms:topic:demoTopic.demoQueue")
+          .to("jms:queue:demoTopic.demoQueue")
+          .log("Delivered to jms:queue:demoTopic.demoQueue");
+          
 
 	}
 }
