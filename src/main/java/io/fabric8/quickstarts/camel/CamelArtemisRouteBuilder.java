@@ -18,8 +18,8 @@ public class CamelArtemisRouteBuilder extends RouteBuilder {
 				log.info("Received: " + arg0.getIn().getBody(String.class));
 			}
     	  })
-          .to("jms:topic:demoTopic.demoQueue")
-          .log("Delivered to jms topic");
+          .to("jms:queue:demoQueue")
+          .log("Delivered to jms queue");
 
 	}
 }
