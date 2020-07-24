@@ -3,11 +3,20 @@ package io.fabric8.quickstarts.camel;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CamelArtemisRouteBuilder extends RouteBuilder {
 
+	@Autowired
+	JmsTemplate jmsTemplate;
+	
+	@Value("${jms.queue.destination}")
+	String destinationQueue;
+	
 	@Override
 	public void configure() throws Exception {
 		from("netty4-http:http://0.0.0.0:3180?sync=false")
@@ -36,6 +45,8 @@ public class CamelArtemisRouteBuilder extends RouteBuilder {
           .setBody().constant("Hello6")
           .to("jms:queue:demoTopic.demoQueue")
           .log("Delivered to jms:queue:demoTopic.demoQueue");
+		
+		  jmsTemplate.convertAndSend(destinationQueue, "Hello!!");
           
 
 	}
