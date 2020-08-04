@@ -16,7 +16,7 @@ public class CamelArtemisRouteBuilder extends RouteBuilder {
 	
 	@Override
 	public void configure() throws Exception {
-		from("netty4-http:http://0.0.0.0:3180?sync=false")
+		from("netty4:tcp://0.0.0.0:3180?sync=false")
     	  .process(new Processor() {
 
 			@Override
