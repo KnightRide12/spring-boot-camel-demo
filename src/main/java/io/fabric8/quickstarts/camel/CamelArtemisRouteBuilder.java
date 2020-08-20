@@ -3,6 +3,10 @@ package io.fabric8.quickstarts.camel;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.hl7.HL7;
+import org.apache.camel.component.hl7.HL7MLLPNettyDecoderFactory;
+import org.apache.camel.component.hl7.HL7MLLPNettyEncoderFactory;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -13,10 +17,25 @@ public class CamelArtemisRouteBuilder extends RouteBuilder {
 	
 	//@Value("${jms.queue.destination}")
 	//String destinationQueue;
+	@Bean
+	private HL7MLLPNettyEncoderFactory hl7Encoder() {
+	  HL7MLLPNettyEncoderFactory encoder = new HL7MLLPNettyEncoderFactory();
+	  encoder.setCharset("iso-8859-1");
+	  //encoder.setConvertLFtoCR(true);
+	  return encoder;
+	}
+	
+	@Bean
+	private HL7MLLPNettyDecoderFactory hl7Decoder() {
+	  HL7MLLPNettyDecoderFactory decoder = new HL7MLLPNettyDecoderFactory();
+	  decoder.setCharset("iso-8859-1");
+	  return decoder;
+	}
+	  
 	
 	@Override
 	public void configure() throws Exception {
-		from("netty4:tcp://0.0.0.0:3180?sync=false")
+		from("netty4:tcp://0.0.0.0:3180?sync=true&decoder=#hl7Decoder&encoder=#hl7Encoder")
     	  .process(new Processor() {
 
 			@Override
@@ -32,7 +51,8 @@ public class CamelArtemisRouteBuilder extends RouteBuilder {
           //.log("Delivered to jms:topic:demoTopic")
           //.setBody().constant("Hello3")
           .to("jms:queue:demoTopic")
-          .log("Delivered to jms:queue:demoTopic");
+          .log("Delivered to jms:queue:demoTopic")
+          .transform(HL7.ack());
           //.setBody().constant("Hello4")
           //.to("jms:topic:demoQueue")
           //.log("Delivered to jms:topic:demoQueue")
