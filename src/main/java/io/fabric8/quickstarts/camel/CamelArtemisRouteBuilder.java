@@ -50,9 +50,10 @@ public class CamelArtemisRouteBuilder extends RouteBuilder {
           //.to("jms:topic:demoTopic")
           //.log("Delivered to jms:topic:demoTopic")
           //.setBody().constant("Hello3")
-          .to("jms:queue:demoTopic")
-          .log("Delivered to jms:queue:demoTopic")
-          .transform(HL7.ack());
+    	  .transform(HL7.ack())
+    	  .to("jms:queue:demoTopic")
+          .log("Delivered to jms:queue:demoTopic");
+          //.transform(HL7.ack());
           //.setBody().constant("Hello4")
           //.to("jms:topic:demoQueue")
           //.log("Delivered to jms:topic:demoQueue")
