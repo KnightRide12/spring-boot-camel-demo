@@ -43,26 +43,26 @@ public class CamelArtemisRouteBuilder extends RouteBuilder {
 				log.info("Received: " + arg0.getIn().getBody(String.class));
 			}
     	  })
-          //.setBody().constant("Hello1")
-    	  //.to("jms:queue:demoQueue")
-          //.log("Delivered to jms:queue:demoQueue")
-          //.setBody().constant("Hello2")
-          //.to("jms:topic:demoTopic")
-          //.log("Delivered to jms:topic:demoTopic")
-          //.setBody().constant("Hello3")
-    	  .convertBodyTo(String.class)
+          .setBody().constant("Hello1")
+    	  .to("jms:queue:demoQueue")
+          .log("Delivered to jms:queue:demoQueue")
+          .setBody().constant("Hello2")
+          .to("jms:topic:demoTopic")
+          .log("Delivered to jms:topic:demoTopic")
+          .setBody().constant("Hello3")
+    	  //.convertBodyTo(String.class)
     	  .to("jms:queue:demoTopic")
           .log("Delivered to jms:queue:demoTopic")
-          .transform(HL7.ack());
-          //.setBody().constant("Hello4")
-          //.to("jms:topic:demoQueue")
-          //.log("Delivered to jms:topic:demoQueue")
-          //.setBody().constant("Hello5")
-          //.to("jms:topic:demoTopic.demoQueue")
-          //.log("Delivered to jms:topic:demoTopic.demoQueue")
-          //.setBody().constant("Hello6")
-          //.to("jms:queue:demoTopic.demoQueue")
-          //.log("Delivered to jms:queue:demoTopic.demoQueue");
+          //.transform(HL7.ack());
+          .setBody().constant("Hello4")
+          .to("jms:topic:demoQueue")
+          .log("Delivered to jms:topic:demoQueue")
+          .setBody().constant("Hello5")
+          .to("jms:topic:demoTopic.demoQueue")
+          .log("Delivered to jms:topic:demoTopic.demoQueue")
+          .setBody().constant("Hello6")
+          .to("jms:queue:demoTopic.demoQueue")
+          .log("Delivered to jms:queue:demoTopic.demoQueue");
 		
 		  //jmsTemplate.convertAndSend(destinationQueue, "Hello!!");
           
