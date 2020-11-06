@@ -34,18 +34,19 @@ public class CamelArtemisRouteBuilder extends RouteBuilder {
 	
 	@Override
 	public void configure() throws Exception {
-		from("netty4:tcp://0.0.0.0:3280?sync=true&decoder=#hl7Decoder&encoder=#hl7Encoder")
-    	  .process(new Processor() {
+		//from("netty4:tcp://0.0.0.0:3280?sync=true&decoder=#hl7Decoder&encoder=#hl7Encoder")
+    	//  .process(new Processor() {
 
-			@Override
-			public void process(Exchange arg0) throws Exception {
-				log.info("Received: " + arg0.getIn().getBody(String.class));
-			}
-    	  })
-		.convertBodyTo(String.class)
-    	.to("jms:queue:demoQueue")
-        .log("Delivered to jms:queue:demoQueue")
-        .transform(HL7.ack());
+		//	@Override
+		//	public void process(Exchange arg0) throws Exception {
+		//		log.info("Received: " + arg0.getIn().getBody(String.class));
+		//	}
+    	//  })
+		//.convertBodyTo(String.class)
+    	from("timer://t1?period=10s")
+		.to("jms:queue:demoQueue")
+        .log("Delivered to jms:queue:demoQueue");
+        //.transform(HL7.ack());
 		
 		/**
 		from("timer://h2?period=10s")
