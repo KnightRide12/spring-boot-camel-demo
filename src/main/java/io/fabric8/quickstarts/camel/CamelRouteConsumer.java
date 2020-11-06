@@ -9,24 +9,20 @@ import org.springframework.stereotype.Component;
 @Component
 public class CamelRouteConsumer extends RouteBuilder {
 
-	@Bean
-	private HL7MLLPNettyEncoderFactory hl7Encoder() {
-	  HL7MLLPNettyEncoderFactory encoder = new HL7MLLPNettyEncoderFactory();
-	  encoder.setCharset("iso-8859-1");
-	  return encoder;
-	}
-	
-	@Bean
-	private HL7MLLPNettyDecoderFactory hl7Decoder() {
-	  HL7MLLPNettyDecoderFactory decoder = new HL7MLLPNettyDecoderFactory();
-	  decoder.setCharset("iso-8859-1");
-	  return decoder;
-	}
+	/*
+	 * @Bean private HL7MLLPNettyEncoderFactory hl7Encoder() {
+	 * HL7MLLPNettyEncoderFactory encoder = new HL7MLLPNettyEncoderFactory();
+	 * encoder.setCharset("iso-8859-1"); return encoder; }
+	 * 
+	 * @Bean private HL7MLLPNettyDecoderFactory hl7Decoder() {
+	 * HL7MLLPNettyDecoderFactory decoder = new HL7MLLPNettyDecoderFactory();
+	 * decoder.setCharset("iso-8859-1"); return decoder; }
+	 */
 	  
 	
 	@Override
 	public void configure() throws Exception {
-		from("jms:queue:demoTopic")
+		from("jms:queue:demoQueue")
     	  .log("Message received from JMS Queue: ${body}");
 	}
 }

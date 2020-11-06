@@ -1,25 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="
-       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://camel.apache.org/schema/spring       http://camel.apache.org/schema/spring/camel-spring.xsd">
-
-    <!-- You could also define a traditional camel context here -->
-    <!--
-    <camelContext xmlns="http://camel.apache.org/schema/spring">
-        <route>
-            <from uri="timer://foo?period=1000"/>
-            <setBody><simple>Hello World from camel-context.xml</simple></setBody>
-            <log message=">>> ${body}"/>
-        </route>
-    </camelContext>
-    -->
-    <bean id="artemisConnectionFactory" class="org.apache.activemq.artemis.jms.client.ActiveMQJMSConnectionFactory">
-      <constructor-arg index="0" value="tcp://demo-broker-ss-0.demo-broker-hdls-svc.kafka.svc.cluster.local:5672"/>
+    xmlns:camel="http://camel.apache.org/schema/spring"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans-3.0.xsd        http://camel.apache.org/schema/spring https://camel.apache.org/schema/spring/camel-spring.xsd">
+    <bean
+        class="org.apache.activemq.artemis.jms.client.ActiveMQJMSConnectionFactory" id="artemisConnectionFactory">
+        <!--  <constructor-arg index="0" value="tcp://demo-broker-ss-0.demo-broker-hdls-svc.kafka.svc.cluster.local:5672"/> -->
+        <constructor-arg index="0" value="tcp://localhost:61616"/>
     </bean>
-    
-    <bean id="jms" class="org.apache.camel.component.jms.JmsComponent">
-      <property name="connectionFactory" ref="artemisConnectionFactory"/>
+    <bean class="org.apache.camel.component.jms.JmsComponent" id="jms">
+        <property name="connectionFactory" ref="artemisConnectionFactory"/>
     </bean>
 </beans>
