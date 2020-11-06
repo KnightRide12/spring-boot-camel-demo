@@ -44,8 +44,8 @@ public class CamelArtemisRouteBuilder extends RouteBuilder {
     	  })
 		.convertBodyTo(String.class)
 		.to("jms:queue:demoQueue")
-        .log("Delivered to jms:queue:demoQueue");
-        //.transform(HL7.ack());
+        .log("Delivered to jms:queue:demoQueue")
+        .transform(HL7.ack());
 		
 		/**
 		from("timer://h2?period=10s")
