@@ -17,32 +17,37 @@ public class CamelArtemisRouteBuilder extends RouteBuilder {
 	
 	//@Value("${jms.queue.destination}")
 	//String destinationQueue;
-	/*
-	 * @Bean private HL7MLLPNettyEncoderFactory hl7Encoder() {
-	 * HL7MLLPNettyEncoderFactory encoder = new HL7MLLPNettyEncoderFactory();
-	 * encoder.setCharset("iso-8859-1"); //encoder.setConvertLFtoCR(true); return
-	 * encoder; }
-	 * 
-	 * @Bean private HL7MLLPNettyDecoderFactory hl7Decoder() {
-	 * HL7MLLPNettyDecoderFactory decoder = new HL7MLLPNettyDecoderFactory();
-	 * decoder.setCharset("iso-8859-1"); return decoder; }
-	 */
+	
+	  @Bean private HL7MLLPNettyEncoderFactory hl7Encoder() {
+	      HL7MLLPNettyEncoderFactory encoder = new HL7MLLPNettyEncoderFactory();
+	      encoder.setCharset("iso-8859-1"); //encoder.setConvertLFtoCR(true); 
+	      return encoder;
+	  }
+	  
+	  @Bean private HL7MLLPNettyDecoderFactory hl7Decoder() {
+	      HL7MLLPNettyDecoderFactory decoder = new HL7MLLPNettyDecoderFactory();
+	      decoder.setCharset("iso-8859-1"); 
+	      return decoder;
+	  }
+	 
 	  
 	
 	@Override
 	public void configure() throws Exception {
-//		from("netty4:tcp://0.0.0.0:3280?sync=true&decoder=#hl7Decoder&encoder=#hl7Encoder")
-//    	  .process(new Processor() {
-//
-//			@Override
-//			public void process(Exchange arg0) throws Exception {
-//				log.info("Received: " + arg0.getIn().getBody(String.class));
-//			}
-//    	  })
-		from("timer://h1?period=10s")
-          .transform(constant("Hello1"))
-    	  .to("jms:queue:demoQueue")
-          .log("Delivered to jms:queue:demoQueue");
+		from("netty4:tcp://0.0.0.0:3280?sync=true&decoder=#hl7Decoder&encoder=#hl7Encoder")
+    	  .process(new Processor() {
+
+			@Override
+			public void process(Exchange arg0) throws Exception {
+				log.info("Received: " + arg0.getIn().getBody(String.class));
+			}
+    	  })
+		.convertBodyTo(String.class)
+    	.to("jms:queue:demoQueue")
+        .log("Delivered to jms:queue:demoQueue")
+        .transform(HL7.ack());
+		
+		/**
 		from("timer://h2?period=10s")
 		.transform(constant("Hello2"))
           .to("jms:topic:demoTopic")
@@ -65,9 +70,7 @@ public class CamelArtemisRouteBuilder extends RouteBuilder {
 		  .transform(constant("Hello6"))
           .to("jms:queue:demoTopic.demoQueue")
           .log("Delivered to jms:queue:demoTopic.demoQueue");
-		
-		  //jmsTemplate.convertAndSend(destinationQueue, "Hello!!");
-          
+        */
 
 	}
 }
