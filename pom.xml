@@ -119,7 +119,7 @@
         </dependency>
          <dependency>
             <groupId>org.apache.camel</groupId>
-            <artifactId>camel-netty4-http</artifactId>
+            <artifactId>camel-netty4-http-starter</artifactId>
         </dependency>
         
         <!-- Test -->
