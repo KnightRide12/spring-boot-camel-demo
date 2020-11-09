@@ -34,12 +34,25 @@ public class CamelArtemisRouteBuilder extends RouteBuilder {
 	
 	@Override
 	public void configure() throws Exception {
+		from("netty4-http:http://0.0.0.0:8080?sync=true&decoder=#hl7Decoder&encoder=#hl7Encoder")
+  	  .process(new Processor() {
+
+			@Override
+			public void process(Exchange arg0) throws Exception {
+				log.info("Received from HTTP: " + arg0.getIn().getBody(String.class));
+			}
+  	  })
+		.convertBodyTo(String.class)
+		.to("jms:queue:demoQueue")
+      .log("Delivered to jms:queue:demoQueue")
+      .transform(HL7.ack());
+		
 		from("netty4:tcp://0.0.0.0:3280?sync=true&decoder=#hl7Decoder&encoder=#hl7Encoder")
     	  .process(new Processor() {
 
 			@Override
 			public void process(Exchange arg0) throws Exception {
-				log.info("Received: " + arg0.getIn().getBody(String.class));
+				log.info("Received from TCP: " + arg0.getIn().getBody(String.class));
 			}
     	  })
 		.convertBodyTo(String.class)
