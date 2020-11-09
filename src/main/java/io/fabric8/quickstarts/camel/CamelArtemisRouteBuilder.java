@@ -34,7 +34,7 @@ public class CamelArtemisRouteBuilder extends RouteBuilder {
 	
 	@Override
 	public void configure() throws Exception {
-		from("netty4-http:http://0.0.0.0:8080?sync=true&decoder=#hl7Decoder&encoder=#hl7Encoder")
+		from("netty4-http:http://0.0.0.0:3380?sync=true&decoder=#hl7Decoder&encoder=#hl7Encoder")
   	  .process(new Processor() {
 
 			@Override
