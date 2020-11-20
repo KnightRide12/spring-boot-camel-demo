@@ -22,7 +22,11 @@ public class CamelRouteConsumer extends RouteBuilder {
 	
 	@Override
 	public void configure() throws Exception {
-		from("jms:queue:demoQueue")
-    	  .log("Message received from JMS Queue: ${body}");
+		from("jms:queue:demoQueue::demoQueue")
+    	  .log("Message received from JMS demoQueue: ${body}");
+		
+		from("jms:queue:demoQueue::restQueue")
+  	      .log("Message received from JMS restQueue: ${body}");
+		
 	}
 }
