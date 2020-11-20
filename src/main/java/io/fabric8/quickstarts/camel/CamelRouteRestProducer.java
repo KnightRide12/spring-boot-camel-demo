@@ -13,11 +13,8 @@ public class CamelRouteRestProducer extends RouteBuilder {
 		
 		rest("/messages")
 		    .post().route()
-		    .to("direct:message");
-		
-		from("direct:message")
-		.log("Received message: ${body}")
-		.to("jms:queue:demoQueue::restQueue");
+		    .log("Received message: ${body}")
+		    .to("jms:queue:demoQueue::restQueue");
 	}
 
 }
