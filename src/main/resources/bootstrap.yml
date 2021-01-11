@@ -1,0 +1,12 @@
+# Startup configuration of Spring-cloud-kubernetes
+spring:
+  application:
+    name: demo-config
+  cloud:
+    kubernetes:
+      config:
+        name: demo-config
+        paths: "/deployments/config"
+      reload:
+        # Enable live reload on ConfigMap change (disabled for Secrets by default)
+        enabled: true

@@ -1,6 +1,7 @@
 spec:
   template:
     spec:
+      serviceAccountName: "default"
       containers:
         - 
           resources:
@@ -13,3 +14,11 @@ spec:
           env:
           - name: SPRING_APPLICATION_JSON
             value: '{"server":{"undertow":{"io-threads":1, "worker-threads":2 }}}'
+          volumeMounts:
+            - name: application-config
+              mountPath: "/deployments/config"
+              readOnly: true
+      volumes:
+      - name: application-config
+        configMap:
+          name: demo-config

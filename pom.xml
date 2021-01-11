@@ -121,6 +121,10 @@
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-netty4-starter</artifactId>
         </dependency>
+        <dependency>
+            <groupId>io.fabric8</groupId>
+            <artifactId>spring-cloud-kubernetes-core</artifactId>
+        </dependency>
         
         <!-- Test -->
         <dependency>
