@@ -16,7 +16,6 @@
 package io.fabric8.quickstarts.camel;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ImportResource;
 
@@ -25,7 +24,6 @@ import org.springframework.context.annotation.ImportResource;
  */
 @ImportResource({"classpath:spring/camel-context.xml"})
 @SpringBootApplication
-@EnableAutoConfiguration
 public class Application {
 	
     // must have a main method spring-boot can run
