@@ -26,6 +26,12 @@
         <maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
     </properties>
 
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.4.2</version>
+    </parent>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -124,6 +130,15 @@
         <dependency>
             <groupId>io.fabric8</groupId>
             <artifactId>spring-cloud-kubernetes-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-configuration</groupId>
+            <artifactId>commons-configuration</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-kubernetes-config</artifactId>
+            <version>1.1.7.RELEASE</version>
         </dependency>
         
         <!-- Test -->

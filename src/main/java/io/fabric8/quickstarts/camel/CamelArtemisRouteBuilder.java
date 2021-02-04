@@ -6,7 +6,8 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.hl7.HL7;
 import org.apache.camel.component.hl7.HL7MLLPNettyDecoderFactory;
 import org.apache.camel.component.hl7.HL7MLLPNettyEncoderFactory;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
@@ -16,8 +17,11 @@ public class CamelArtemisRouteBuilder extends RouteBuilder {
 	//@Autowired
 	//JmsTemplate jmsTemplate;
 	
-	@Value("${queue.demoQueue}")
-	private String demoQueue;
+	@Autowired
+	private QueueConfig config;
+	
+	//@Value("${queue.demoQueue}")
+	//private String demoQueue;
 	
 	  @Bean private HL7MLLPNettyEncoderFactory hl7Encoder() {
 	      HL7MLLPNettyEncoderFactory encoder = new HL7MLLPNettyEncoderFactory();
@@ -44,8 +48,8 @@ public class CamelArtemisRouteBuilder extends RouteBuilder {
 			}
     	  })
 		.convertBodyTo(String.class)
-		.to(demoQueue) //"jms:queue:demoQueue::demoQueue")
-        .log("Delivered to " + demoQueue)
+		.to(config.getDemoQueue()) //"jms:queue:demoQueue::demoQueue")
+        .log("Delivered to " + config.getDemoQueue())
         .transform(HL7.ack());
 		
 		/**
